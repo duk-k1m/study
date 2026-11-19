@@ -55,7 +55,8 @@ body {
   justify-items: center;
   margin: 0;
   padding: var(--s-8);
-  background: var(--linen) url("assets/paper.webp") repeat;
+  background: url("assets/window-light.webp") center top / cover no-repeat,
+    var(--linen) url("assets/paper.webp") repeat;
   color: var(--ink);
 }
 
@@ -299,8 +300,19 @@ p { text-wrap: pretty; }
   #invite-title { font-size: 3rem; }
 }
 
-@media (max-width: 49rem) {
-  body { padding: var(--s-4); }
+@media (width > 56rem) {
+  .postcard-art { grid-area: 1 / 1; }
+  .postcard-panel { grid-area: 1 / 2; }
+
+  /* Size both faces from the same grid row so the illustration stays in place. */
+  .postcard-panel[hidden] { display: flex !important; visibility: hidden; }
+}
+
+@media (max-width: 56rem) {
+  body {
+    align-items: start;
+    padding: clamp(var(--s-4), 4svh, var(--s-10)) var(--s-4) var(--s-4);
+  }
 
   .postcard {
     grid-template-columns: 1fr;
@@ -324,7 +336,7 @@ p { text-wrap: pretty; }
 }
 
 @media (max-width: 25rem) {
-  body { padding: var(--s-3); }
+  body { padding-inline: var(--s-3); }
   #invite-title { font-size: 2.25rem; letter-spacing: -0.055em; }
   .choices { gap: var(--s-3); }
   .schedule-fields { grid-template-columns: 1.1fr 1fr; }

@@ -136,7 +136,7 @@
   function showScreen(screen, title) {
     resetDodge();
     for (const section of [invitation, accepted, declined]) section.hidden = section !== screen;
-    window.scrollTo(0, 0);
+    if (screen !== accepted) window.scrollTo(0, 0);
     document.getElementById(title).focus({ preventScroll: true });
   }
 
@@ -218,9 +218,39 @@
   window.visualViewport?.addEventListener('resize', keepDeclineVisible);
   window.visualViewport?.addEventListener('scroll', keepDeclineVisible);
 
-  acceptButton.addEventListener('click', () => {
+  let turning = false;
+
+  acceptButton.addEventListener('click', async () => {
+    if (turning) return;
+
+    const canTurn = !motion.matches && typeof invitation.animate === 'function';
+    const flat = { transform: 'perspective(70rem) rotateY(0deg)', opacity: 1 };
+    let outgoing;
+
+    if (canTurn) {
+      turning = true;
+      resetDodge();
+      invitation.inert = true;
+      outgoing = invitation.animate([
+        flat,
+        { transform: 'perspective(70rem) rotateY(-84deg)', opacity: 0.6 },
+      ], { duration: 180, easing: 'cubic-bezier(0.4, 0, 1, 1)', fill: 'forwards' });
+      await outgoing.finished.catch(() => {});
+    }
+
     showScreen(accepted, 'accepted-title');
+    outgoing?.cancel();
+    invitation.inert = false;
+
+    if (canTurn && !motion.matches) {
+      accepted.animate([
+        { transform: 'perspective(70rem) rotateY(84deg)', opacity: 0.6 },
+        flat,
+      ], { duration: 380, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+    }
+
     celebrate();
+    turning = false;
   });
   document.getElementById('declined-back').addEventListener('click', (event) => {
     event.preventDefault();
