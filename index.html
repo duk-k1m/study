@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eee2d2">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Một lời rủ đi học cùng nhau ở Contrast Coffee, Hà Nội.">
+  <title>Đi học chung với anh không?</title>
+  <link rel="icon" href="data:,">
+  <link rel="preload" href="assets/fonts/quicksand-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="postcard">
+    <div class="postcard-art">
+      <img src="assets/study-table.webp" width="1080" height="960" alt="Hai ly cà phê cạnh cuốn vở mở và cây bút chì trên bàn." fetchpriority="high">
+    </div>
+
+    <section class="postcard-panel" id="invitation" aria-labelledby="invite-title">
+      <p class="place-name">Contrast Coffee</p>
+      <h1 id="invite-title" tabindex="-1">Đi học chung<br>với anh không?</h1>
+      <p class="intro"><strong>Contrast chạy deadline.</strong></p>
+
+      <div class="choices">
+        <button class="button button-primary" id="accept-button" type="button">Đi luôn</button>
+        <div class="decline-slot" id="decline-slot">
+          <button class="button button-secondary" id="decline-button" type="button">Bận rồi / Không đi</button>
+        </div>
+      </div>
+      <noscript><p class="form-status">Bật JavaScript để trả lời lời mời nhé.</p></noscript>
+    </section>
+
+    <section class="postcard-panel" id="accepted" aria-labelledby="accepted-title" hidden>
+      <h1 class="panel-title" id="accepted-title" tabindex="-1">Em rảnh hôm nào?</h1>
+
+      <div class="venue">
+        <div>
+          <h2>Contrast Coffee</h2>
+          <p>37 ngõ 645 P. Vũ Tông Phan,<br>Khương Đình, Hà Nội</p>
+          <p class="venue-hours">Mở cửa 24/7</p>
+        </div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Contrast%20Coffee%2C%2037%20ng%C3%B5%20645%20V%C5%A9%20T%C3%B4ng%20Phan%2C%20Kh%C6%B0%C6%A1ng%20%C4%90%C3%ACnh%2C%20H%C3%A0%20N%E1%BB%99i" target="_blank" rel="noopener noreferrer">Mở Google Maps</a>
+      </div>
+
+      <!-- Replace YOUR_FORM_ID with the ID from your Formspree form. -->
+      <form id="schedule-form" action="https://formspree.io/f/YOUR_FORM_ID" method="post" aria-label="Chốt lịch đi học">
+        <input type="hidden" name="_subject" value="Kèo học ở Contrast Coffee">
+        <div class="schedule-fields">
+          <div class="field">
+            <label for="date">Ngày</label>
+            <input id="date" name="date" type="date" required>
+          </div>
+          <div class="field">
+            <label for="time">Giờ</label>
+            <input id="time" name="time" type="time" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="message">Đồ uống hoặc lời nhắn <span>(Tuỳ chọn)</span></label>
+          <textarea id="message" name="message" rows="2" maxlength="1000" placeholder="Ví dụ: một ly bạc xỉu ít đá"></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button class="button button-primary" type="submit" id="submit-button">Chốt kèo &amp; Gửi</button>
+          <button class="text-button" type="button" id="accepted-back">Xem lại lời mời</button>
+        </div>
+        <p class="form-status" id="form-status" role="status" aria-live="polite" aria-atomic="true"></p>
+      </form>
+    </section>
+
+    <section class="postcard-panel" id="declined" aria-labelledby="declined-title" hidden>
+      <p class="place-name">Contrast Coffee</p>
+      <h1 class="panel-title" id="declined-title" tabindex="-1">Ừ, để hôm khác nhé.</h1>
+      <button class="text-button" type="button" id="declined-back">Xem lại lời mời</button>
+    </section>
+  </main>
+
+  <canvas id="confetti" aria-hidden="true" hidden></canvas>
+</body>
+</html>
